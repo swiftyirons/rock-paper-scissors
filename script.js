@@ -12,9 +12,8 @@ function getComputerChoice() {
       break;
   }
 }
-function playRound(playerSelection, computerSelection) {
 
-  playerSelection = playerSelection.toLowerCase();
+function playRound(playerSelection, computerSelection) {
   const won = (playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper");
   const lost = (playerSelection === "scissors" && computerSelection === "rock") || (playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors");
 
@@ -37,19 +36,20 @@ function declareWinner(gamesWon, gamesLost) {
   }
 }
 
-function game() {
+function game(playerSelection) {
   let gamesWon = 0;
   let gamesLost = 0;
-  for (let i = 1; i <= 5; i++) {
-    let playerSelection = prompt("Please enter rock, paper, or scissors: ");
-    let result = playRound(playerSelection, getComputerChoice());
+  let result = playRound(playerSelection, getComputerChoice());
     console.log(result);
     if (result.charAt(4) === "w") {
       gamesWon +=1;
     } else if (result.charAt(4) === "l") {
       gamesLost += 1;
     }
-  }
   console.log(declareWinner(gamesWon, gamesLost));
 } 
-game();
+// game();
+
+document.getElementById("rockBtn").addEventListener("click", function(){ game("rock"); });
+document.getElementById("paperBtn").addEventListener("click", function(){ game("paper"); });
+document.getElementById("scissorsBtn").addEventListener("click", function(){ game("scissors"); });

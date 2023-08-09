@@ -12,6 +12,7 @@ function getComputerChoice() {
       break;
   }
 }
+
 function playRound(playerSelection, computerSelection) {
 
   const won = (playerSelection === "rock" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper");
@@ -60,7 +61,6 @@ function declareWinner(gamesWon, gamesLost) {
     loser.textContent = "You lost! Better luck next time.";
     results.appendChild(loser);
   }
-    
 }
 
 let gamesWon = 0;
@@ -84,9 +84,6 @@ function game(playerSelection) {
       declareWinner(gamesWon);
     }
 } 
-
-
-
 
 document.getElementById("rockBtn").addEventListener("click", function(){ game("rock"); });
 document.getElementById("paperBtn").addEventListener("click", function(){ game("paper"); });

@@ -18,29 +18,56 @@ function playRound(playerSelection, computerSelection) {
   const lost = (playerSelection === "scissors" && computerSelection === "rock") || (playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors");
 
   if (won) {
-    return `You won! ${playerSelection} beats ${computerSelection}`;
+    return `You won this round! ${playerSelection} beats ${computerSelection}`;
   } else if (lost) {
-    return `You lost! ${computerSelection} beats ${playerSelection}`;
+    return `You lost this round! ${computerSelection} beats ${playerSelection}`;
   } else {
-    return `You tied. You both chose ${playerSelection}`
+    return `You tied this round. You both chose ${playerSelection}`;
+  }
+}
+
+function displayResults(gamesWon, gamesLost) {
+  let pluralWon = "games";
+  let pluralLost = "games";
+  if (gamesWon === 1) {
+    pluralWon = "game";
+  }
+  if (gamesLost === 1) {
+    pluralLost = "game";
+  }
+  if (gamesWon > gamesLost) {
+    return `You have won ${gamesWon} ${pluralWon} and lost ${gamesLost} ${pluralLost}.`;
+  } else if (gamesWon < gamesLost) {
+    return `You have won ${gamesWon} ${pluralWon} and lost ${gamesLost} ${pluralLost}.`;
+  } else {
+    return `You have won ${gamesWon} ${pluralWon} and lost ${gamesLost} ${pluralLost}.`;
+  }
+}
+
+function checkGameOver(gamesWon, gamesLost) {
+  if (gamesWon === 5 || gamesLost === 5) {
+    return true;
   }
 }
 
 function declareWinner(gamesWon, gamesLost) {
-  if (gamesWon > gamesLost) {
-    return `You are the Winner! You won ${gamesWon} and lost ${gamesLost} games.`;
-  } else if (gamesWon < gamesLost) {
-    return `You are the Loser! You won ${gamesWon} and lost ${gamesLost} games.`;
-  } else {
-    return `You tied. You won ${gamesWon} and lost ${gamesLost} games.`
+  if (gamesWon === 5) {
+    const winner = document.createElement("div");
+    winner.textContent = "Congratulations! You won!";
+    results.appendChild(winner);
+  } else if (gamesLost === 5) {
+    const loser = document.createElement("div");
+    loser.textContent = "You lost! Better luck next time.";
+    results.appendChild(loser);
   }
+    
 }
 
+let gamesWon = 0;
+let gamesLost = 0;
+
 function game(playerSelection) {
-  let gamesWon = 0;
-  let gamesLost = 0;
-  const results = document.querySelector("#results");
- // while loop goes here {
+    const results = document.querySelector("#results");
     let result = playRound(playerSelection, getComputerChoice());
     const resultOfRound = document.createElement("div");
     resultOfRound.textContent = result;
@@ -50,11 +77,12 @@ function game(playerSelection) {
     } else if (result.charAt(4) === "l") {
       gamesLost += 1;
     }
- // }
     const score = document.createElement("div");
-    score.textContent = declareWinner(gamesWon, gamesLost);
+    score.textContent = displayResults(gamesWon, gamesLost);
     results.appendChild(score);
-//  console.log(declareWinner(gamesWon, gamesLost));
+    if (declareWinner(gamesWon, gamesLost)) {
+      declareWinner(gamesWon);
+    }
 } 
 
 
